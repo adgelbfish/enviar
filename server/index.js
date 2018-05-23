@@ -6,6 +6,7 @@ const TWILIO_PHONE = process.env.TWILIO_PHONE
 const PORT = process.env.PORT || 3000
 const DEV = process.env.NODE_ENV === 'development'
 const APP_TITLE = process.env.APP_TITLE || require('../package.json').name
+const COUCHDB_URL = process.env.COUCHDB_URL
 const COUCHDB_HOST = process.env.COUCHDB_HOST
 const COUCHDB_USER = process.env.COUCHDB_USER
 const COUCHDB_PASS = process.env.COUCHDB_PASS
@@ -49,8 +50,8 @@ if (DEV) {
 }
 
 // Setup CouchDB
-assert(COUCHDB_HOST, 'COUCHDB_HOST environment variable is not defined')
-const authUrl = COUCHDB_USER ? addAuthToUrl(COUCHDB_HOST, COUCHDB_USER, COUCHDB_PASS) : COUCHDB_HOST
+//assert(COUCHDB_HOST, 'COUCHDB_HOST environment variable is not defined')
+const authUrl = COUCHDB_URL || COUCHDB_USER ? addAuthToUrl(COUCHDB_HOST, COUCHDB_USER, COUCHDB_PASS) : COUCHDB_HOST
 const configPath = path.join(__dirname, '../database/couchdb')
 
 bootstrap(authUrl, configPath, { index: true }, (err, body) => {
